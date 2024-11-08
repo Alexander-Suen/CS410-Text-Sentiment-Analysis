@@ -1,0 +1,8 @@
+numpy
+pandas
+nltk
+spacy
+scikit-learn
+tensorflow
+flask
+django
