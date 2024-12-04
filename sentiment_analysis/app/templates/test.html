@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Amazon Review Scraper</h2>
+    
+    <!-- Debug info - remove after testing
+    <div style="background: #f8f9fa; padding: 10px; margin: 10px 0;">
+        Debug Info:
+        <pre>Analysis: {{ analysis|default:"No analysis" }}</pre>
+    </div> -->
+    
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="amazon_url">Amazon Product URL:</label>
+            <input type="url" class="form-control" id="amazon_url" name="amazon_url" 
+                   placeholder="Enter Amazon product URL" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Get Reviews</button>
+    </form>
+
+    <!-- Analysis Section -->
+    {% if analysis %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4>Review Analysis</h4>
+                <p class="mb-2">Positive Reviews: <strong>{{ analysis.positive_percent }}%</strong></p>
+                <p class="mb-0">Average Rating: <strong>{{ analysis.average_rating }} / 5.0  ({{ analysis.avg_percent }}%) </strong></p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Reviews Section -->
+    {% if reviews %}
+    Remove once done with Testing
+        <h3>Reviews ({{ reviews|length }})</h3>
+        <div class="reviews-container">
+            {% for review in reviews %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        {{ review }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

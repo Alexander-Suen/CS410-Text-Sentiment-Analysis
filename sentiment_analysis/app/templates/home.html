@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Review Sentiment Analysis{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Review Sentiment Analysis</h1>
+    <!-- <p class="lead">Analyze the sentiment of reviews with ease!</p> -->
+</div>
+
+<div class="mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Model Overview</h3>
+                    <p class="card-text">Our sentiment analysis model is built using a pre-trained BeRT model and fine-tuned on millions of labeled Amazon reviews. The model analyzes review text to determine whether the sentiment is positive or negative.</p>
+                    <div class="row text-center mt-4">
+                        <div class="col-md-6">
+                            <h5>Model Type</h5>
+                            <p>BeRT Model with word2vec</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>F1-Score</h5>
+                            <p>0.62</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

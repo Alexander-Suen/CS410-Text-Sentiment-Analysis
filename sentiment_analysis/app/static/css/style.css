@@ -1,0 +1,23 @@
+.reviews-container {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+/* New styles for the analysis card */
+.card h4 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.card strong {
+    color: #007bff;
+}
