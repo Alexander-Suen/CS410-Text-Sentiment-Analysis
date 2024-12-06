@@ -3,3 +3,9 @@ requests
 django
 torch
 transformers
+tqdm
+pandas
+datasets
+scikit-learn
+numpy
+evaluate
