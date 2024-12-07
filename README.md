@@ -130,10 +130,10 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 1. Run the backend server:
 
    ```
-   python app/backend.py
+   python manage.py runserver
    ```
 
-2. Access the web interface at `http://localhost:5000`.
+2. Access the web interface at `http://localhost:8000`.
 
 ------
 
