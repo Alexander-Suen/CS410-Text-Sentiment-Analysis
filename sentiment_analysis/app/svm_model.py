@@ -64,7 +64,9 @@ class SVMSentiment:
         self.svm.fit(self.x_train_vec, self.train_data['labels'])
         
         y_pred = self.svm.predict(self.x_test_vec)
-        mets = self.compute_metrics(y_pred, self.test_data['labels'])
+        mets_dict = self.compute_metrics(y_pred, self.test_data['labels'])
+        accuracy = mets_dict['accuracy']
+        f1 = mets_dict['f1']
         print(f"Accuracy: {accuracy}")
         print(f"F1: {f1}")
         
