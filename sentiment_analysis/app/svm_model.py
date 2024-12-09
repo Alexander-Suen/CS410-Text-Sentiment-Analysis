@@ -1,25 +1,30 @@
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, DataCollatorWithPadding, TrainingArguments, Trainer, pipeline
 import torch
 from torch.nn.functional import softmax
-import numpy as np
+import gensim
+import nltk
+import re
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
 from datasets import load_dataset, Dataset 
 import evaluate  
 from pathlib import Path
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, f1_score, classification_report
 
 
-class SentimentAnalysisModel:
+class SVMSentiment:
     def __init__(self, verbose=False, load_pretrained=True):
-        self.model_dir = Path("models/sentiment_model")
+        self.model_dir = Path("models/svm_sentiment")
         print(f"Looking for model in: {self.model_dir.absolute()}")
         self.is_trained = False
         
         if load_pretrained and self.model_dir.exists():
             print(f"Found model directory at {self.model_dir}") if verbose else None
             try:
-                self.tokenizer = AutoTokenizer.from_pretrained(str(self.model_dir))
-                self.model = AutoModelForSequenceClassification.from_pretrained(str(self.model_dir))
                 self.is_trained = True
                 print("Successfully loaded pre-trained model and tokenizer") if verbose else None
                 return  
@@ -29,8 +34,7 @@ class SentimentAnalysisModel:
         else:
             print(f"No saved model found at {self.model_dir}, using default model") if verbose else None
         
-        self.tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
-        self.model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
+        
         
         print("Loading dataset...") if verbose else None
         self.dataset = load_dataset("McAuley-Lab/Amazon-Reviews-2023", "raw_review_All_Beauty")
@@ -42,22 +46,45 @@ class SentimentAnalysisModel:
         print("Splitting data...") if verbose else None
         self.train_data, self.test_data = self.tt_split(verbose)
         
-        self.tokenized_train = Dataset.from_dict(self.train_data).map(self.preprocess_function, batched=True)
-        self.tokenized_test = Dataset.from_dict(self.train_data).map(self.preprocess_function, batched=True)
+        self.x_tokenized_train = [[w for w in cleanText(sentence).split(" ") if w != ""] for sentence in self.train_data['text']]
+        print(self.x_tokenized_train[0])
+#         self.y_tokenized_train = [[w for w in cleanText(sentence).split(" ") if w != ""] for sentence in self.train_data['labels']]
+#         print(self.y_tokenized_train[0])
+        
+        self.x_tokenized_test = [[w for w in cleanText(sentence).split(" ") if w != ""] for sentence in self.test_data['text']]
+        print(self.x_tokenized_test[0])
+#         self.y_tokenized_test = [[w for w in cleanText(sentence).split(" ") if w != ""] for sentence in self.test_data['labels']]
+#         print(self.y_tokenized_test[0])
+        
+        self.word2v = gensim.models.Word2Vec(self.x_tokenized_train,vector_size=200)
+        
+        self.x_train_vec = self.sentence_vector(self.x_tokenized_train)
+        self.x_test_vec = self.sentence_vector(self.x_tokenized_test)
+        self.svm = SVC(kernel='linear', probability=True)
+        self.svm.fit(self.x_train_vec, self.train_data['labels'])
+        
+        y_pred = self.svm.predict(self.x_test_vec)
+        mets = self.compute_metrics(y_pred, self.test_data['labels'])
+        print(f"Accuracy: {accuracy}")
+        print(f"F1: {f1}")
         
 
-    def preprocess_function(self, examples):
-        return self.tokenizer(examples["text"], truncation=True)
+        
+
+    # def preprocess_function(self, examples):
+    #     return self.tokenizer(examples["text"], truncation=True)
     
    
-    def compute_metrics(self, eval_pred):
+    def compute_metrics(self, y_true, y_pred):
         accuracy_metric = evaluate.load("accuracy")
         f1_metric = evaluate.load("f1")
         
-        logits, labels = eval_pred
-        predictions = np.argmax(logits, axis=-1)
-        accuracy = accuracy_metric.compute(predictions=predictions, references=labels)["accuracy"]
-        f1 = f1_metric.compute(predictions=predictions, references=labels, average='binary')["f1"]
+        accuracy = accuracy_score(y_true, y_pred)
+        f1 = f1_score(y_true, y_pred, average='binary')
+        
+        # Print detailed classification report
+        print("\nClassification Report:")
+        print(classification_report(y_true, y_pred))
         return {"accuracy": accuracy, "f1": f1}
     
 
@@ -76,7 +103,7 @@ class SentimentAnalysisModel:
             X = X.iloc[indices]
             y = y.iloc[indices]
 
-        X_train, X_test, y_train, y_test = evaluate.train_test_split(
+        X_train, X_test, y_train, y_test = train_test_split(
             X, y,
             test_size=1000, 
             random_state=42,
@@ -105,70 +132,20 @@ class SentimentAnalysisModel:
         }
 
         return train_dataset, test_dataset
-
     
-    def train_model(self):
-        data_collator = DataCollatorWithPadding(tokenizer=self.tokenizer)
-        
-        training_args = TrainingArguments(
-            output_dir="./checkpoints",
-            learning_rate=2e-5,
-            per_device_train_batch_size=16,
-            per_device_eval_batch_size=16,
-            num_train_epochs=2,
-            weight_decay=0.01,
-            save_strategy="epoch",
-            evaluation_strategy="epoch",
-            save_total_limit=2,
-            load_best_model_at_end=True,
-            metric_for_best_model="accuracy"  
-        )
-
-        trainer = Trainer(
-            model=self.model,
-            args=training_args,
-            train_dataset=self.tokenized_train,
-            eval_dataset=self.tokenized_test,
-            tokenizer=self.tokenizer,
-            data_collator=data_collator,
-            compute_metrics=self.compute_metrics,
-        )
-        
-        trainer.train()
-        
-        print("Saving trained model...")
-        self.model_dir.mkdir(parents=True, exist_ok=True)
-        self.model.save_pretrained(str(self.model_dir))
-        self.tokenizer.save_pretrained(str(self.model_dir))
-        self.is_trained = True
-        
-    def eval_model(self):
-        self.trainer.evaluate()
-
-
-    def save_model(self):
-        model_dir = Path("./models/sentiment_model")
-        model_dir.mkdir(parents=True, exist_ok=True)
-
-        print("Saving model to", model_dir)
-        self.model.save_pretrained(str(model_dir))
-        self.tokenizer.save_pretrained(str(model_dir))
-        print("Model and tokenizer saved successfully!")
-
-        self.model_dir = model_dir
-
     
-    def analyze_text(self, text):
-        self.model.eval()
+    def sentence_vector(self, sentences):
+        vecs = []
+        for sentence in sentences:
+            sv = [self.word2v.wv[word] for word in sentence if word in self.word2v.wv]
+            if sv:
+                vecs.append(np.mean(sv, axis=0))
+            else:
+                vecs.append(np.zeros(self.word2v.vector_size))
+        return np.array(vecs)
 
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
 
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-            logits = outputs.logits
-
-        probabilities = softmax(logits, dim=1)
-
-        positive_score = probabilities[0][1].item()
-
-        return positive_score
+def cleanText(text):
+    cleaned = re.sub("[^a-zA-Z0-9']"," ",text)
+    lowered = cleaned.lower()
+    return lowered.strip()
