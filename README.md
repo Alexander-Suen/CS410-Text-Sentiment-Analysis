@@ -8,6 +8,8 @@ Report: https://docs.google.com/document/d/10rc6Pk_CcjJO9RlF_7TWrIVctYKhaMIpQHJr
 
 Presentation: https://docs.google.com/presentation/d/1XxK8e_-8g96gtWm81ytv_tIMtaDbK3cdS_Z_y1UADWI/edit?usp=sharing
 
+The Trained Sentiment Model: https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing
+
 ## Project Overview
 
 **Course**: CS410 Text Information Systems - Fall 2024 
@@ -145,6 +147,9 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
    ```
 
 2. Access the web interface at `http://localhost:8000`.
+
+3. (Optional but recommended) Replace the sentiment_model folder in the sentiment_analysis/models subdirectory with the trained sentiment model linked above (https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing). This will save hours of retraining
+   
 
 ------
 
