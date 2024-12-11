@@ -1,6 +1,5 @@
 # Text-Based Sentiment Analysis for Product Reviews
 
-# LINKS
 
 ### Project Description
 Github Repo: https://github.com/Alexander-Suen/CS410-Text-Sentiment-Analysis/
