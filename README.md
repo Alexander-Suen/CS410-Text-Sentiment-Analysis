@@ -150,5 +150,5 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 
 ## Additional Resources
 
-- **Documentation**: Comprehensive code documentation is available in the `docs/` directory.
-- **Presentation**: A link to the final presentation or video is provided in the repository.
+- **Documentation**: See the Google Doc link
+- **Presentation**: See the Google Doc link
