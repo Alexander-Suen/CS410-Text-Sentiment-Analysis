@@ -1,5 +1,12 @@
 # Text-Based Sentiment Analysis for Product Reviews
 
+# LINKS
+
+### Project Description
+Github Repo: https://github.com/Alexander-Suen/CS410-Text-Sentiment-Analysis/
+Report: https://docs.google.com/document/d/10rc6Pk_CcjJO9RlF_7TWrIVctYKhaMIpQHJr4AGsSOQ/edit?usp=sharing
+Presentation: https://docs.google.com/presentation/d/1XxK8e_-8g96gtWm81ytv_tIMtaDbK3cdS_Z_y1UADWI/edit?usp=sharing
+
 ## Project Overview
 
 **Course**: CS410 Text Information Systems - Fall 2024 - 
@@ -10,6 +17,7 @@
 - Avinash Tiwari (GitHub: `tiwari6`)
 - Brendan Heaney (GitHub: `bheaney2`)
 - Minghao Sun (GitHub: `msun60`)
+
 
 ### Project Description
 
