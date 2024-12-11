@@ -10,7 +10,8 @@ Presentation: https://docs.google.com/presentation/d/1XxK8e_-8g96gtWm81ytv_tIMta
 
 ## Project Overview
 
-**Course**: CS410 Text Information Systems - Fall 2024 - 
+**Course**: CS410 Text Information Systems - Fall 2024 
+
 **Project Title**: Text-Based Sentiment Analysis for Product Reviews
 **Team Members**:
 
