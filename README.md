@@ -138,6 +138,8 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
    pip install -r requirements.txt
    ```
 
+3. (Optional but recommended) Replace the sentiment_model folder in the sentiment_analysis/models subdirectory with the trained sentiment model linked above (https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing). This will save hours of retraining
+
 ### Running the Application
 
 1. Run the backend server:
@@ -149,7 +151,7 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 
 2. Access the web interface at `http://localhost:8000`.
 
-3. (Optional but recommended) Replace the sentiment_model folder in the sentiment_analysis/models subdirectory with the trained sentiment model linked above (https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing). This will save hours of retraining
+
    
 
 ------
