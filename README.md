@@ -136,11 +136,11 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 
 Create and activate a Python virtual environment:
 
-  ```
-  python -m venv venv
-  source venv/bin/activate  # Linux/MacOS
-  venv\Scripts\activate     # Windows
-  ```
+    ```
+    python -m venv venv
+    source venv/bin/activate  # Linux/MacOS
+    venv\Scripts\activate     # Windows
+    ```
 
 3. Install dependencies:
 
