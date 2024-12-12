@@ -136,11 +136,11 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 
 Create and activate a Python virtual environment:
 
-    ```
-    python -m venv venv
-    source venv/bin/activate  # Linux/MacOS
-    venv\Scripts\activate     # Windows
-    ```
+   ```
+   python -m venv venv
+   source venv/bin/activate  # Linux/MacOS
+   venv\Scripts\activate     # Windows
+   ```
 
 3. Install dependencies:
 
@@ -148,7 +148,7 @@ Create and activate a Python virtual environment:
    pip install -r requirements.txt
    ```
 
-3. (Optional but recommended) Replace the sentiment_model folder in the sentiment_analysis/models subdirectory with the trained sentiment model linked above (https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing). This will save hours of retraining
+4. (Optional but recommended) Replace the sentiment_model folder in the sentiment_analysis/models subdirectory with the trained sentiment model linked above (https://drive.google.com/file/d/1xM-PkrEgO0oGIvkpivUvmzalRarIKbkc/view?usp=sharing). This will save hours of retraining
 
 ### Running the Application
 
