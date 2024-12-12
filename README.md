@@ -2,6 +2,9 @@
 
 
 ### Project Description
+
+Demo Video: https://mediaspace.illinois.edu/media/t/1_kkmgbbob
+
 Github Repo: https://github.com/Alexander-Suen/CS410-Text-Sentiment-Analysis/
 
 Report: https://docs.google.com/document/d/10rc6Pk_CcjJO9RlF_7TWrIVctYKhaMIpQHJr4AGsSOQ/edit?usp=sharing
