@@ -132,7 +132,17 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
    cd CS410-Text-Sentiment-Analysis
    ```
 
-2. Install dependencies:
+2. Set Up the Environment:
+
+Create and activate a Python virtual environment:
+
+  ```
+  python -m venv venv
+  source venv/bin/activate  # Linux/MacOS
+  venv\Scripts\activate     # Windows
+  ```
+
+3. Install dependencies:
 
    ```
    pip install -r requirements.txt
