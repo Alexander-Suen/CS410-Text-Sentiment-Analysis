@@ -128,7 +128,7 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/Text-Sentiment-Analysis.git
+   git clone https://github.com/Alexander-Suen/CS410-Text-Sentiment-Analysis.git
    cd Text-Sentiment-Analysis
    ```
 
