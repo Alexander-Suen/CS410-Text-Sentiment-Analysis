@@ -143,6 +143,7 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 1. Run the backend server:
 
    ```
+   cd sentiment_analysis
    python manage.py runserver
    ```
 
