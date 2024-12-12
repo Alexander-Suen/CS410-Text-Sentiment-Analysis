@@ -129,7 +129,7 @@ The tool is developed using Python, leveraging libraries such as NLTK, TextBlob,
 
    ```
    git clone https://github.com/Alexander-Suen/CS410-Text-Sentiment-Analysis.git
-   cd Text-Sentiment-Analysis
+   cd CS410-Text-Sentiment-Analysis
    ```
 
 2. Install dependencies:
